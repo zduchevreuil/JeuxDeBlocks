@@ -272,6 +272,8 @@ function startGame() {
 }
 
 // Interaction events
+// Interaction events
+// Mouse Events
 document.addEventListener('mousedown', (e) => {
     if (!gameStarted) return;
 
@@ -294,6 +296,54 @@ document.addEventListener('mousemove', (e) => {
 
 document.addEventListener('mouseup', (e) => {
     if (currentBlock) {
+        // Drop Sound
+        SoundEngine.drop();
+
+        // Drop the block
+        Matter.Body.setStatic(currentBlock, false);
+        currentBlock = null;
+
+        // Update score
+        blockCount++;
+        scoreElement.innerText = `Blocs: ${blockCount}`;
+    }
+});
+
+// Touch Events (Mobile Support)
+document.addEventListener('touchstart', (e) => {
+    if (!gameStarted) return;
+    // If touching a UI element (button, input), ignore to avoid spawning blocks through UI
+    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') return;
+
+    e.preventDefault(); // Prevent standard mouse emulation and scrolling
+
+    const touch = e.touches[0];
+
+    // Sound
+    SoundEngine.spawn();
+
+    spawnBlock(touch.clientX, 100);
+}, { passive: false });
+
+document.addEventListener('touchmove', (e) => {
+    if (!gameStarted) return;
+
+    if (currentBlock) {
+        e.preventDefault(); // Prevent scrolling while dragging
+
+        const touch = e.touches[0];
+        // Clamp X to be within screen boundaries
+        const margin = 60;
+        const clampedX = Math.max(margin, Math.min(touch.clientX, window.innerWidth - margin));
+
+        Matter.Body.setPosition(currentBlock, { x: clampedX, y: 100 });
+    }
+}, { passive: false });
+
+document.addEventListener('touchend', (e) => {
+    if (currentBlock) {
+        // e.preventDefault(); 
+
         // Drop Sound
         SoundEngine.drop();
 
