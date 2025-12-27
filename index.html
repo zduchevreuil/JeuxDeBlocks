@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Blocs</title>
+    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="clouds.css">
+    <!-- Matter.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+</head>
+
+<body>
+    <div id="background-layer">
+        <div class="cloud x1"></div>
+        <div class="cloud x2"></div>
+        <div class="cloud x3"></div>
+        <div class="cloud x4"></div>
+    </div>
+    <div id="ui-layer">
+        <div id="score">Blocs: 0</div>
+    </div>
+
+    <div id="start-screen">
+        <h1>Jeu de Blocs</h1>
+        <p>Empilez les formes le plus haut possible !</p>
+        <button id="start-btn">JOUER</button>
+        <button id="settings-btn" class="icon-btn">⚙️</button>
+    </div>
+
+    <div id="settings-modal" class="hidden">
+        <div class="modal-content">
+            <h2>Paramètres</h2>
+            <div class="setting-item">
+                <label for="music-toggle">Musique</label>
+                <input type="checkbox" id="music-toggle" checked>
+            </div>
+            <div class="setting-item">
+                <label for="sfx-toggle">Effets Sonores</label>
+                <input type="checkbox" id="sfx-toggle" checked>
+            </div>
+            <button id="close-settings-btn">Fermer</button>
+        </div>
+    </div>
+
+    <div id="game-over-modal" class="hidden">
+        <div class="modal-content">
+            <h2>Perdu !</h2>
+            <p>Votre tour est tombée.</p>
+            <div id="final-score">Score: 0</div>
+            <div class="button-group">
+                <button id="restart-btn">Rejouer</button>
+                <button id="quit-btn">Quitter</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

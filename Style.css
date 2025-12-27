@@ -1,0 +1,230 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #87CEEB;
+    /* Sky Blue */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    pointer-events: none;
+    /* Permet de cliquer à travers pour le jeu */
+    z-index: 10;
+    padding-top: 20px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+p {
+    margin: 5px 0;
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+#score {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #4CAF50;
+}
+
+canvas {
+    display: block;
+}
+
+/* Start Screen */
+#start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#start-screen h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 0 4px 0 #000;
+}
+
+#start-screen p {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+}
+
+#start-btn {
+    padding: 15px 40px;
+    font-size: 2rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #2E7D32;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+#start-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #2E7D32;
+}
+
+#settings-btn {
+    margin-top: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.2s;
+}
+
+#settings-btn:hover {
+    transform: rotate(90deg);
+}
+
+/* Modal */
+#settings-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.modal-content {
+    background: #333;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    min-width: 300px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.setting-item input[type="checkbox"] {
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+#close-settings-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#close-settings-btn:hover {
+    background: #1976D2;
+}
+
+/* Game Over Modal Elements */
+#game-over-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+#game-over-modal h2 {
+    color: #ef5350;
+    /* Red for game over */
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+#final-score {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #fff;
+}
+
+/* Game Over Buttons */
+.button-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+#restart-btn {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    background: #FF9800;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #F57C00;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+#quit-btn {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    background: #f44336;
+    /* Red */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #d32f2f;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+#restart-btn:active,
+#quit-btn:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+/* Helper to hide elements */
+.hidden {
+    display: none !important;
+}
