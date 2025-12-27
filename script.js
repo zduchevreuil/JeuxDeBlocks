@@ -95,11 +95,18 @@ restartBtn.addEventListener('click', () => {
 });
 
 quitBtn.addEventListener('click', () => {
-    gameOverModal.classList.add('hidden');
-    resetGame();
-    gameStarted = false;
-    startScreen.classList.remove('hidden'); // Show start screen
-    SoundEngine.stopMusic(); // Optionally stop music on menu
+    // Try to close the window
+    window.close();
+
+    // Use a fallback if window.close() is blocked (most browsers block it if not opened by script)
+    // We replace the entire body with a goodbye message
+    document.body.innerHTML = `
+        <div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#000;color:#fff;font-family:'Segoe UI', sans-serif;flex-direction:column;text-align:center;">
+            <h1 style="font-size:3rem;margin-bottom:20px;">Jeu Quitté</h1>
+            <p style="font-size:1.5rem;">Merci d'avoir joué !</p>
+            <p style="opacity:0.7;margin-top:10px;">Vous pouvez fermer cet onglet.</p>
+        </div>
+    `;
 });
 
 function gameOver() {
