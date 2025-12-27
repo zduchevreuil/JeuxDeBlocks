@@ -72,6 +72,9 @@ const finalScoreElement = document.getElementById('final-score');
 const restartBtn = document.getElementById('restart-btn');
 const quitBtn = document.getElementById('quit-btn');
 
+const homeBtn = document.getElementById('home-btn');
+const homeQuitBtn = document.getElementById('home-quit-btn');
+
 function resetGame() {
     // Reset game state
     blockCount = 0;
@@ -94,7 +97,16 @@ restartBtn.addEventListener('click', () => {
     SoundEngine.playMusic(); // Resume music
 });
 
-quitBtn.addEventListener('click', () => {
+homeBtn.addEventListener('click', () => {
+    gameOverModal.classList.add('hidden');
+    resetGame();
+    startScreen.classList.remove('hidden'); // Show start screen
+    gameStarted = false;
+    // Don't play music yet, wait for user to click Start
+});
+
+
+const quitAction = () => {
     // Try to close the window
     window.close();
 
@@ -107,7 +119,10 @@ quitBtn.addEventListener('click', () => {
             <p style="opacity:0.7;margin-top:10px;">Vous pouvez fermer cet onglet.</p>
         </div>
     `;
-});
+};
+
+quitBtn.addEventListener('click', quitAction);
+homeQuitBtn.addEventListener('click', quitAction);
 
 function gameOver() {
     SoundEngine.gameOver();
@@ -273,8 +288,11 @@ function startGame() {
 
 // Interaction events
 // Interaction events
+// Bind events to the canvas specifically to avoid UI interference
+const canvas = render.canvas;
+
 // Mouse Events
-document.addEventListener('mousedown', (e) => {
+canvas.addEventListener('mousedown', (e) => {
     if (!gameStarted) return;
 
     // Sound
@@ -284,7 +302,7 @@ document.addEventListener('mousedown', (e) => {
     spawnBlock(e.clientX, 100);
 });
 
-document.addEventListener('mousemove', (e) => {
+canvas.addEventListener('mousemove', (e) => {
     if (currentBlock) {
         // Clamp X to be within screen boundaries
         const margin = 60;
@@ -294,7 +312,7 @@ document.addEventListener('mousemove', (e) => {
     }
 });
 
-document.addEventListener('mouseup', (e) => {
+canvas.addEventListener('mouseup', (e) => {
     if (currentBlock) {
         // Drop Sound
         SoundEngine.drop();
@@ -310,13 +328,12 @@ document.addEventListener('mouseup', (e) => {
 });
 
 // Touch Events (Mobile Support)
-document.addEventListener('touchstart', (e) => {
+canvas.addEventListener('touchstart', (e) => {
     if (!gameStarted) return;
-    // If touching a UI element (button, input), ignore to avoid spawning blocks through UI
-    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') return;
 
-    e.preventDefault(); // Prevent standard mouse emulation and scrolling
+    e.preventDefault(); // Critical for avoiding scrolling
 
+    // Since we bind to canvas, e.target should be the canvas.
     const touch = e.touches[0];
 
     // Sound
@@ -325,12 +342,11 @@ document.addEventListener('touchstart', (e) => {
     spawnBlock(touch.clientX, 100);
 }, { passive: false });
 
-document.addEventListener('touchmove', (e) => {
+canvas.addEventListener('touchmove', (e) => {
     if (!gameStarted) return;
+    e.preventDefault(); // Always prevent scrolling on the game canvas
 
     if (currentBlock) {
-        e.preventDefault(); // Prevent scrolling while dragging
-
         const touch = e.touches[0];
         // Clamp X to be within screen boundaries
         const margin = 60;
@@ -340,10 +356,9 @@ document.addEventListener('touchmove', (e) => {
     }
 }, { passive: false });
 
-document.addEventListener('touchend', (e) => {
+canvas.addEventListener('touchend', (e) => {
+    e.preventDefault(); // Prevent potential mouse emulation firing after
     if (currentBlock) {
-        // e.preventDefault(); 
-
         // Drop Sound
         SoundEngine.drop();
 

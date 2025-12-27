@@ -6,6 +6,8 @@ body {
     /* Sky Blue */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
+    touch-action: none;
+    /* Globally prevent scrolling */
 }
 
 #ui-layer {
@@ -41,6 +43,10 @@ p {
 
 canvas {
     display: block;
+    touch-action: none;
+    /* Prevents scrolling/zooming on the canvas */
+    user-select: none;
+    /* Prevents selection */
 }
 
 /* Start Screen */
@@ -222,6 +228,46 @@ canvas {
 #quit-btn:active {
     transform: translateY(4px);
     box-shadow: none;
+}
+
+#home-btn {
+    padding: 15px 30px;
+    font-size: 1.5rem;
+    background: #2196F3;
+    /* Blue */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #1976D2;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+#home-btn:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+#home-quit-btn {
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    background: #f44336;
+    /* Red */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #d32f2f;
+    transition: transform 0.1s, box-shadow 0.1s;
+    margin-top: 15px;
+    /* Spacing from Start button */
+    display: block;
+    /* Ensure it sits on its own line if needed */
+}
+
+#home-quit-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #d32f2f;
 }
 
 /* Helper to hide elements */
